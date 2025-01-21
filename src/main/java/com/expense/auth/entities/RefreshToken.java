@@ -26,7 +26,7 @@ public class RefreshToken {
      
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
-     private String id;
+     private Long id;
 
      private String token;
      private Instant expiryDate;

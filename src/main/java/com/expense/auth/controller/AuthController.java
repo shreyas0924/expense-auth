@@ -30,6 +30,7 @@ public class AuthController
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @SuppressWarnings("rawtypes")
     @PostMapping("auth/v1/signup")
     public ResponseEntity SignUp(@RequestBody UserInfoDto userInfoDto){
         try{
