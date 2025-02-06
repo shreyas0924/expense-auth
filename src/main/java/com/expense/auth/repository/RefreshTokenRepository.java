@@ -8,7 +8,7 @@ import com.expense.auth.entities.RefreshToken;
 import java.util.Optional;
 
 @Repository
-public interface RefreshTokenRepository extends CrudRepository<RefreshToken, String> {
+public interface RefreshTokenRepository extends CrudRepository<RefreshToken, Long> {
      Optional<RefreshToken> findByToken(String token);
 
 }
