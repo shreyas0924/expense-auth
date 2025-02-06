@@ -6,8 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"com.expense.auth.repository"})
-@ComponentScan(basePackages = {"com.expense.auth.auth", "com.expense.auth.controller", "com.expense.auth.service"})
+@EnableJpaRepositories(basePackages = { "com.expense.auth.repository" })
+@ComponentScan(basePackages = { "com.expense.auth.auth", "com.expense.auth.controller", "com.expense.auth.service",
+		"com.expense.auth.eventProducer" })
 public class AuthApplication {
 
 	public static void main(String[] args) {

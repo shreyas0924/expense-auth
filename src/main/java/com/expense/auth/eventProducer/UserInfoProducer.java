@@ -14,7 +14,7 @@ import com.expense.auth.model.UserInfoDto;
 public class UserInfoProducer {
      private final KafkaTemplate<String, UserInfoDto> kafkaTemplate;
 
-     @Value("${spring.kafka.topic.name}")
+     @Value("${spring.kafka.topic-json.name}")
      private String TOPIC_NAME;
 
      @Autowired
