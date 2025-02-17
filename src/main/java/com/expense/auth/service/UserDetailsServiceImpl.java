@@ -21,6 +21,7 @@ import com.expense.auth.repository.UserRepository;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Component
 @AllArgsConstructor
@@ -57,7 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
         return userRepository.findByUsername(userInfoDto.getUsername());
     }
 
-    public Boolean signupUser(UserInfoDto userInfoDto){
+    public Boolean signupUser(UserInfoDto userInfoDto) throws InterruptedException, ExecutionException{
         //        ValidationUtil.validateUserAttributes(userInfoDto);
         userInfoDto.setPassword(passwordEncoder.encode(userInfoDto.getPassword()));
         if(Objects.nonNull(checkIfUserAlreadyExist(userInfoDto))){

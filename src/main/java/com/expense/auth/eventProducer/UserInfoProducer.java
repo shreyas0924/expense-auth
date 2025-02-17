@@ -1,5 +1,7 @@
 package com.expense.auth.eventProducer;
 
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -22,10 +24,10 @@ public class UserInfoProducer {
           this.kafkaTemplate = kafkaTemplate;
      }
 
-     public void sendEventToKafka(UserInfoDto userInfoDto) {
+     public void sendEventToKafka(UserInfoDto userInfoDto) throws InterruptedException, ExecutionException {
           Message<UserInfoDto> message = MessageBuilder.withPayload(userInfoDto)
                     .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME).build();
-          kafkaTemplate.send(message);
+          kafkaTemplate.send(message).get();
      }
 
 }
