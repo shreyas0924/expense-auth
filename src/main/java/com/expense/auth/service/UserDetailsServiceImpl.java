@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.expense.auth.entities.UserInfo;
+import com.expense.auth.eventProducer.UserInfoEvent;
 import com.expense.auth.eventProducer.UserInfoProducer;
 import com.expense.auth.model.UserInfoDto;
 import com.expense.auth.repository.UserRepository;
@@ -68,8 +69,16 @@ public class UserDetailsServiceImpl implements UserDetailsService
         userRepository.save(new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>()));
         // pushEventToQueue
 
-        userInfoProducer.sendEventToKafka(userInfoDto);
+        userInfoProducer.sendEventToKafka(userInfoEventToPublish(userInfoDto, userId));
 
         return true;
+    }
+        private UserInfoEvent userInfoEventToPublish(UserInfoDto userInfoDto, String userId){
+        return UserInfoEvent.builder()
+                .userId(userId)
+                .firstName(userInfoDto.getUsername())
+                .lastName(userInfoDto.getLastName())
+                .email(userInfoDto.getEmail())
+                .phoneNumber(userInfoDto.getPhoneNumber()).build();
     }
 }

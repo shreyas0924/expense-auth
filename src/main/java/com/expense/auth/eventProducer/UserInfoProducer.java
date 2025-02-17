@@ -24,8 +24,8 @@ public class UserInfoProducer {
           this.kafkaTemplate = kafkaTemplate;
      }
 
-     public void sendEventToKafka(UserInfoDto userInfoDto) throws InterruptedException, ExecutionException {
-          Message<UserInfoDto> message = MessageBuilder.withPayload(userInfoDto)
+     public void sendEventToKafka(UserInfoEvent userInfoDto) throws InterruptedException, ExecutionException {
+          Message<UserInfoEvent> message = MessageBuilder.withPayload(userInfoDto)
                     .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME).build();
           kafkaTemplate.send(message).get();
      }
