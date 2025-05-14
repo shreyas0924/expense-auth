@@ -23,7 +23,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Table(name = "users")
 public class UserInfo {
-
      @Id
      @Column(name = "user_id")
      private String userId;

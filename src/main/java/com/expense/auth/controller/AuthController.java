@@ -53,7 +53,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/auth/v1/ping")
+    @GetMapping("auth/v1/ping")
     public ResponseEntity<String> ping() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -66,7 +66,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
     }
 
-    @GetMapping("/health")
+    @GetMapping("health")
     public ResponseEntity<Boolean> checkHealth() {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
