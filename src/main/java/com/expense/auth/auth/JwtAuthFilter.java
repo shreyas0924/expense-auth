@@ -23,16 +23,26 @@ import com.expense.auth.service.UserDetailsServiceImpl;
 import java.io.IOException;
 
 @Component
-@AllArgsConstructor
 @Data
 public class JwtAuthFilter extends OncePerRequestFilter
 {
 
-    @Autowired
     private final JwtService jwtService;
-    @Autowired
     private final UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    public JwtAuthFilter(JwtService jwtService, UserDetailsServiceImpl userDetailsService) {
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
+
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) {
+//        String path = request.getServletPath();
+//        return path.equals("/auth/v1/login")
+//                || path.equals("/auth/v1/signup")
+//                || path.equals("/auth/v1/refreshToken");
+//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

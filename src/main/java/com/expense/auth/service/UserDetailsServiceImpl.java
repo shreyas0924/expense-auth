@@ -2,7 +2,6 @@ package com.expense.auth.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +29,13 @@ import java.util.concurrent.ExecutionException;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private final UserRepository userRepository;
+    private  UserRepository userRepository;
 
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private final UserInfoProducer userInfoProducer;
+    private UserInfoProducer userInfoProducer;
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 

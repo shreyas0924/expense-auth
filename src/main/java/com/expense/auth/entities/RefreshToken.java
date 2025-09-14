@@ -1,6 +1,7 @@
 package com.expense.auth.entities;
 
 import java.time.Instant;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.Entity;
@@ -21,17 +22,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Data
-@Table(name= "tokens")
+@Table(name = "tokens")
 public class RefreshToken {
-     
-     @Id
-     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long id;
 
-     private String token;
-     private Instant expiryDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-     @OneToOne
-     @JoinColumn(name = "id", referencedColumnName = "user_id")
-     UserInfo userInfo;
+    private String token;
+    private Instant expiryDate;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    UserInfo userInfo;
 }

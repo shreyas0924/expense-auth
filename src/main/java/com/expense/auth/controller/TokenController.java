@@ -20,9 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/auth/v1")
 public class TokenController {
 
     @Autowired
@@ -36,7 +38,7 @@ public class TokenController {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenController.class);
 
-    @PostMapping("auth/v1/login")
+    @PostMapping("/login")
     public ResponseEntity AuthenticateAndGetToken(@RequestBody AuthRequestDto authRequestDTO) {
         logger.info("Login request received for user: {}", authRequestDTO.getUsername());
         try {
@@ -63,16 +65,18 @@ public class TokenController {
         }
     }
 
-    @PostMapping("auth/v1/refreshToken")
+    @PostMapping("/refreshToken")
     public JwtResponseDto refreshToken(@RequestBody RefreshTokenRequestDto refreshTokenRequestDTO) {
         return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUserInfo)
                 .map(userInfo -> {
+                    RefreshToken newRefreshToken = refreshTokenService.createRefreshToken(userInfo.getUsername());
                     String accessToken = jwtService.GenerateToken(userInfo.getUsername());
                     return JwtResponseDto.builder()
                             .accessToken(accessToken)
-                            .token(refreshTokenRequestDTO.getToken()).build();
+                            .token(newRefreshToken.getToken())
+                            .build();
                 }).orElseThrow(() -> new RuntimeException("Refresh Token is not in DB..!!"));
     }
 }
